@@ -1,31 +1,49 @@
-For your previous assignment, add the following features:
+Continue your previous assignment, add the following features:
 
-Replace your DynamicVector template with the STL vector. Use STL algorithms wherever possible in your application (e.g. in your filter function you could use copy_if, count_if). Replace all your for loops either with STL algorithms, or with the ranged-based for loop (C++11).
 
-Create and use a new repository to store your domain data in a text file, but not the "mylist". Do not cache the data in memory, all operations will only use files. If there is no file at the provided location create one. For this feature, use the iostream library. 
+Use exceptions to signal errors:
 
-Create insertion and extraction operators for your entities and use these when reading/writing to files or console.
+from the repository
 
-All the functions in your application must be specified and tested. Using the OpenCppCoverage tool, make sure you have at least 99% coverage for all your modules, except for the UI. For Linux, you may use any appropriate tool you find.
+validation errors – validate your entities using Validator classes
+
+create your own exception classes
+
+Store mylist in a CSV(Comma Separated Values) or HTML(Hypertext Markup Language) file, depending on what you get as input for mylistLocation.
+
+the CSV file will contain each entity on one line and the attributes will be separated by comma (,)
+
+in the HTML file you will have a table, in which each row holds the data of one entity. The columns of the table will contain the names of the data attributes. You may find an example of a valid html structure here: https://www.cs.ubbcluj.ro/~iuliana/oop/Laboratories/Lab8-9.pdf
+
+Open mylist with the correct application:
+
+CSV file – with Notepad, Notepad++, Microsoft Excel or OpenOffice Calc
+
+HTML file – with a browser
+
+Create a UML diagram for your entire application. For this, you can use any tool that you like (StarUML is an example of open source software for UML). Do not draw the diagram by hand.
 
 All commands must be in the form:
 
 
-fileLocation fullPath (e.g. fileLocation c:\some really long\path\with spaces\myFileName.txt) - the commands must use this location from now on
+mylistLocation fullPath (e.g. mylistLocation c:\some really long\path\with spaces\myFileName.XXX) - use the file extension given (XXX) to save in the appropriate format (.txt or .csv or .html)
 
-All previous commands must work with the given file (add, update, delete, etc.)
+Example test run: (make sure to create the files at the provided path)
 
-Example test run:
 
 call: fileLocation c:\some really long\path\with spaces\myFileName.txt
+
+call: mylistLocation c:\some really long\path\with spaces\myfile.csv
 
 call: mode A
 
 call: add [valid input]
 
-call: list
+call: mode B
 
-Check for [valid input in any format, in c:\some really long\path\with spaces\myFileName.txt]
+call: save [id from valid input]
 
-Note:The server will call list just in case you use that as a trigger to save, but will only test the file contents for correctness.
 
+call: exit
+
+Check for [valid input in specified format, in c:\some really long\path\with spaces\myfile.csv]
