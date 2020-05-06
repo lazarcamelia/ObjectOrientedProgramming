@@ -1,26 +1,19 @@
-EC-PD morgue assistant mode: an assistant can access the program and choose one or more victim files to mark as unconnected to the string 
-of murders or to move to other departments for research, in the event of new findings. The program will allow the assistant to:
+For your previous assignment, add the following features:
 
-1. See the victim files in the database, one by one. When the assistant chooses this option, the data of the first victim (place of origin, 
-name, age) is displayed, along with its post-autopsy photograph.
+Replace your DynamicVector template with the STL vector. Use STL algorithms wherever possible in your application (e.g. in your filter function you could use copy_if, count_if). Replace all your for loops either with STL algorithms, or with the ranged-based for loop (C++11).
+Create and use a new repository to store your domain data in a text file, but not the "mylist". Do not cache the data in memory, all operations will only use files. If there is no file at the provided location create one. For this feature, use the iostream library. Create insertion and extraction operators for your entities and use these when reading/writing to files or console.
+All the functions in your application must be specified and tested. Using the OpenCppCoverage tool, make sure you have at least 99% coverage for all your modules, except for the UI. For Linux, you may use any appropriate tool you find.
+All commands must be in the form:
 
-2. Choose to transfer the file to another department, in which case the victim file is added to the assistant's “to be transferred” list.
+fileLocation fullPath (e.g. fileLocation c:\some really long\path\with spaces\myFileName.txt) - the commands must use this location from now on
+All previous commands must work with the given file (add, update, delete, etc.)
+Example test run:
 
-3. Choose not to transfer the victim file and to continue to the next. In this case, the information corresponding to the next victim file
-is shown and the assistant is again offered the possibility to transfer it. This can continue as long as the assistant wants, as when 
-arriving to the end of the list, if the assistant chooses next, the application will again show the first victim file.
+call: fileLocation c:\some really long\path\with spaces\myFileName.txt
+call: mode A
+call: add [valid input]
+call: list
+Check for [valid input in any format, in c:\some really long\path\with spaces\myFileName.txt]
 
-4. See all victim files of a given place of origin, having an age less than a given number. If the place of origin is empty, then all 
-victim files will be considered. The same options (a, b and c) apply in this case.
+Note:The server will call list just in case you use that as a trigger to save, but will only test the file contents for correctness.
 
-5. See the list of victim files selected to be removed as irrelevant or transferred to other departments for additional research.
-
-The DinamicVector that you created should now use template, now that you have access to them. All commands must take the form:
-
-next
-
-save name (e.g. save Jane Doe)
-
-list placeOfOrigin, age (e.g. list Hertfordshire, 28)
-
-mylist
