@@ -18,6 +18,9 @@ victim files will be considered. The same options (a, b and c) apply in this cas
 The DinamicVector that you created should now use template, now that you have access to them. All commands must take the form:
 
 next
+
 save name (e.g. save Jane Doe)
+
 list placeOfOrigin, age (e.g. list Hertfordshire, 28)
+
 mylist
