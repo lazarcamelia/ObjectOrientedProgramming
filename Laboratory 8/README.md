@@ -10,9 +10,13 @@ All previous commands must work with the given file (add, update, delete, etc.)
 Example test run:
 
 call: fileLocation c:\some really long\path\with spaces\myFileName.txt
+
 call: mode A
+
 call: add [valid input]
+
 call: list
+
 Check for [valid input in any format, in c:\some really long\path\with spaces\myFileName.txt]
 
 Note:The server will call list just in case you use that as a trigger to save, but will only test the file contents for correctness.
