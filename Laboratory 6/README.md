@@ -9,10 +9,15 @@ be human after all. Create your own DynamicVector, allocate resources only as ne
 All commands must be in the form:
 
 mode X (e.g. mode A)
+
 add name, placeOfOrigin, age, photograph (e.g. add Jane Doe, unknown, 27, jd42185.jpg)
+
 update name, newPlaceOfOrigin, newAge, newPhotograph (e.g. update Jane Doe, Hertfordshire, 28, jd42329.jpg)
+
 delete name (e.g. delete Jane Doe)
+
 list
+
 exit
 
 EC-PD morgue assistant mode: an assistant can access the program and choose one or more victim files to mark as unconnected to the string 
@@ -35,6 +40,9 @@ victim files will be considered. The same options (a, b and c) apply in this cas
 The DinamicVector that you created should now use template, now that you have access to them. All commands must take the form:
 
 next
+
 save name (e.g. save Jane Doe)
+
 list placeOfOrigin, age (e.g. list Hertfordshire, 28)
+
 mylist
