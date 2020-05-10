@@ -43,3 +43,6 @@ call: save [id from valid input]
 call: exit
 
 Check for [valid input in specified format, in c:\some really long\path\with spaces\myfile.csv]
+
+Bonus (0.2 p)
+In addition to the file-based implementation for the repository, implement an SQL-backed repository. For this, useinheritance and polymorphism. Choose any type of database management system (e.g. MySQL, SQLite, PostgreSQL).To receive the bonus, the requirements must be implemented correctly, by week 11 and the application must function properly.
