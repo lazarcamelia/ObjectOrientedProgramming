@@ -1,0 +1,6 @@
+Victim1,Barcelona,34,www.google.com
+
+Victim2,Madrid,21,www.bing.com
+
+Victim3,Atena,34,www.facebook.com
+

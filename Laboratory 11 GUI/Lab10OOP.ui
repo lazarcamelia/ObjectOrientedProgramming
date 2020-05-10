@@ -1,0 +1,29 @@
+<UI version="4.0" >
+ <class>Lab10OOPClass</class>
+ <widget class="QMainWindow" name="Lab10OOPClass" >
+  <property name="objectName" >
+   <string notr="true">Lab10OOPClass</string>
+  </property>
+  <property name="geometry" >
+   <rect>
+	<x>0</x>
+	<y>0</y>
+	<width>600</width>
+	<height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Lab10OOP</string>
+  </property>
+  <widget class="QMenuBar" name="menuBar" />
+  <widget class="QToolBar" name="mainToolBar" />
+  <widget class="QWidget" name="centralWidget" />
+  <widget class="QStatusBar" name="statusBar" />
+ </widget>
+ <layoutDefault spacing="6" margin="11" />
+ <pixmapfunction></pixmapfunction>
+ <resources>
+   <include location="Lab10OOP.qrc"/>
+ </resources>
+ <connections/>
+</UI>
