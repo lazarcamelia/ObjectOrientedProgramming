@@ -3,8 +3,20 @@
 #include <qformlayout.h>
 #include <qgridlayout.h>
 #include "Victim.h"
+#include "Exceptions.h"
 #include <vector>
 #include <string>
+#include <map>
+
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMainWindow>
+#include <QtCharts/QChartView>
+#include <QtCharts/QPieSeries>
+#include <QtCharts/QPieSlice>
+#include <qchar.h>
+#include <qmessagebox.h>
+
+QT_CHARTS_USE_NAMESPACE
 
 using namespace std;
 
@@ -25,6 +37,7 @@ void GUI::initializeGUI() {
 	this->addVictimButton = new QPushButton("Add victim");
 	this->deleteVictimButton = new QPushButton("Delete victim");
 	this->updateVictimButton = new QPushButton("Update victim");
+	this->chartButton = new QPushButton("Show chart");
 
 	QVBoxLayout* mainLayout = new QVBoxLayout{ this };
 	//add the filelocation layout
@@ -52,6 +65,12 @@ void GUI::initializeGUI() {
 	buttonsLayout->addWidget(this->deleteVictimButton, 0, 1);
 	buttonsLayout->addWidget(this->updateVictimButton, 0, 2);
 	mainLayout->addLayout(buttonsLayout);
+
+	QGridLayout* chartLayout = new QGridLayout();
+	buttonsLayout->addWidget(this->chartButton, 1, 1);
+	mainLayout->addLayout(chartLayout);
+
+	mainLayout->addStrut(750);
 }
 
 void GUI::populateListOfVictims() {
@@ -60,7 +79,8 @@ void GUI::populateListOfVictims() {
 	vector<Victim> allVictims = this->service.getAllVictims();
 
 	for (auto victim : allVictims) {
-		this->victimListWidget->addItem(QString::fromStdString(victim.toString()));
+		//this->victimListWidget->addItem(QString::fromStdString(victim.toString()));
+		this->victimListWidget->addItem(QString::fromStdString(victim.getName() + " - " + victim.getPlaceOfOrigin()));
 	}
 }
 
@@ -82,6 +102,7 @@ void GUI::makeConnectionBetweenSignalsAndSlots() {
 	QObject::connect(this->addVictimButton, &QPushButton::clicked, this, &GUI::addVictim);
 	QObject::connect(this->deleteVictimButton, &QPushButton::clicked, this, &GUI::deleteVictim);
 	QObject::connect(this->updateVictimButton, &QPushButton::clicked, this, &GUI::updateVictim); 
+	QObject::connect(this->chartButton, &QPushButton::clicked, this, &GUI::showChart); 
 }
 
 int GUI::getSelectedIndexFromList() const {
@@ -105,9 +126,13 @@ void GUI::addVictim() {
 	string placeOfOrigin = this->placeOfOriginLineEdit->text().toStdString();
 	int age = stoi(this->ageVictimLineEdit->text().toStdString());
 	string photolink = this->photoLinkVictimLineEdit->text().toStdString();
+	try {
+		this->service.addVictim(nameOfVictim, placeOfOrigin, age, photolink);
+	}
+	catch (exception& exception) {
+		QMessageBox::critical(this, "Error", exception.what());
 
-	this->service.addVictim(nameOfVictim, placeOfOrigin, age, photolink);
-
+	}
 	this->populateListOfVictims();
 
 	int lastElement = this->service.getAllVictims().size() - 1;
@@ -116,8 +141,12 @@ void GUI::addVictim() {
 
 void GUI::deleteVictim() {
 	string nameOfVictim = this->nameVictimLineEdit->text().toStdString();
-
-	this->service.deleteVictim(nameOfVictim);
+	try {
+		this->service.deleteVictim(nameOfVictim);
+	}
+	catch (exception& exception) {
+		QMessageBox::critical(this, "Error", exception.what());
+	}
 
 	this->populateListOfVictims();
 
@@ -130,8 +159,12 @@ void GUI::updateVictim() {
 	string placeOfOrigin = this->placeOfOriginLineEdit->text().toStdString();
 	int age = stoi(this->ageVictimLineEdit->text().toStdString());
 	string photolink = this->photoLinkVictimLineEdit->text().toStdString();
-
-	this->service.updateVictim(nameOfVictim, placeOfOrigin, age, photolink);
+	try {
+		this->service.updateVictim(nameOfVictim, placeOfOrigin, age, photolink);
+	}
+	catch (exception& exception) {
+		QMessageBox::critical(this, "Error", exception.what());
+	}
 
 	this->populateListOfVictims();
 
@@ -143,13 +176,75 @@ void GUI::updateVictim() {
 			break;
 		}
 	} 
-
 }
 
 void GUI::setFileLocation() {
 	string path = this->fileLocationLineEdit->text().toStdString();
 
-	this->service.setFileLocation(path);
+	if (path != "")
+		this->service.setFileLocation(path);
+	else {
+		QMessageBox::critical(this, "Error", "The path is empty");
+	}
 
 	this->populateListOfVictims();
 }
+
+void GUI::showChart() {
+	QPieSeries* series = new QPieSeries();
+
+	vector<Victim> victims = this->service.getAllVictims();
+	vector<string> placesOfOrigin;
+	map<string, int> numberOfVictims;
+
+	for (auto victim : victims) {
+		if (std::find(placesOfOrigin.begin(), placesOfOrigin.end(), victim.getPlaceOfOrigin()) == placesOfOrigin.end()) {
+			placesOfOrigin.push_back(victim.getPlaceOfOrigin());
+			numberOfVictims[victim.getPlaceOfOrigin()] = 1;
+		}
+		else 
+			numberOfVictims[victim.getPlaceOfOrigin()]++;
+	}
+
+	int index = 0;
+	int maximNumberOfVictims = 0, indexOfMaxim = 0;
+
+	for (auto placeOforigin : placesOfOrigin) {
+		series->append(QString::fromStdString(placeOforigin), numberOfVictims[placeOforigin]);
+
+		if (numberOfVictims[placeOforigin] > maximNumberOfVictims) {
+			indexOfMaxim = index;
+			maximNumberOfVictims = numberOfVictims[placeOforigin];
+		}
+			
+		index++;
+	}
+	 
+
+	for (auto i = 0; i < placesOfOrigin.size(); i++) {
+		QPieSlice* slice = series->slices().at(i);
+		slice->setLabelVisible();
+	}	
+
+	QPieSlice* slice = series->slices().at(indexOfMaxim);
+	slice->setExploded();
+	slice->setLabelVisible();	
+	slice->setPen(QPen(Qt::darkGreen, 2));
+	slice->setBrush(Qt::green);
+
+	QChart* chart = new QChart();
+	chart->addSeries(series);
+	chart->setTitle("Victims' place of origin piechart");
+	chart->legend()->hide();
+
+	QChartView* chartView = new QChartView(chart);
+	chartView->setRenderHint(QPainter::Antialiasing);
+
+	chartView->show();
+
+	QMainWindow* window = new QMainWindow();
+	window->setCentralWidget(chartView);
+	window->resize(1200, 1200);
+	window->show();
+
+}	

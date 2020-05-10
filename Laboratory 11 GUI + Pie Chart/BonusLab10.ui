@@ -1,8 +1,8 @@
 <UI version="4.0" >
- <class>Lab10OOPClass</class>
- <widget class="QMainWindow" name="Lab10OOPClass" >
+ <class>BonusLab10Class</class>
+ <widget class="QMainWindow" name="BonusLab10Class" >
   <property name="objectName" >
-   <string notr="true">Lab10OOPClass</string>
+   <string notr="true">BonusLab10Class</string>
   </property>
   <property name="geometry" >
    <rect>
@@ -13,7 +13,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Lab10OOP</string>
+   <string>BonusLab10</string>
   </property>
   <widget class="QMenuBar" name="menuBar" />
   <widget class="QToolBar" name="mainToolBar" />
@@ -23,7 +23,7 @@
  <layoutDefault spacing="6" margin="11" />
  <pixmapfunction></pixmapfunction>
  <resources>
-   <include location="Lab10OOP.qrc"/>
+   <include location="BonusLab10.qrc"/>
  </resources>
  <connections/>
 </UI>

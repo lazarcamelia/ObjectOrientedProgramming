@@ -18,7 +18,10 @@ vector<Victim> Service::getAllVictims() const
 void Service::addVictim(const string& name, const string& placeOforigin, int age, const string& photoLink) {
 	Victim victimToBeAddedToRepo = Victim(name, placeOforigin, age, photoLink);
 	Validator::validateVictim(victimToBeAddedToRepo);
-	this->repo->addVictim(victimToBeAddedToRepo);
+	if (!this->repo->isVictim(victimToBeAddedToRepo))
+		this->repo->addVictim(victimToBeAddedToRepo);
+	else
+		throw StoringException("The victim already exist");
 }
 
 void Service::deleteVictim(const string& name) {
@@ -27,7 +30,7 @@ void Service::deleteVictim(const string& name) {
 	if (this->repo->isVictim(victimToBeDeleted))
 		this->repo->deleteVictim(victimToBeDeleted);
 	else
-		throw StoringException("Invalid input!");
+		throw StoringException("The victim doesn't exist");
 }
 
 void Service::updateVictim(const string& name, const string& newPlaceOforigin, int newAge, const string& newPhotoLink) {
@@ -36,7 +39,7 @@ void Service::updateVictim(const string& name, const string& newPlaceOforigin, i
 	if (this->repo->isVictim(victimToBeUpdated))
 		this->repo->updateVictim(victimToBeUpdated);
 	else
-		throw StoringException("Invalid input!");
+		throw StoringException("The victim doesn't exist");
 }
 
 void Service::setFileLocation(const string& fileLocation)

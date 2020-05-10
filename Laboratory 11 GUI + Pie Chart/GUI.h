@@ -11,7 +11,7 @@ private:
 	//grahical elements
 	QListWidget* victimListWidget;
 	QLineEdit* fileLocationLineEdit, *nameVictimLineEdit, * placeOfOriginLineEdit, * ageVictimLineEdit, * photoLinkVictimLineEdit;
-	QPushButton* fileLocationButton, *  addVictimButton, * deleteVictimButton, * updateVictimButton;
+	QPushButton* fileLocationButton, *  addVictimButton, * deleteVictimButton, * updateVictimButton, *chartButton;
 public:
 	GUI(Service& _service);
 private:
@@ -24,5 +24,6 @@ private:
 	void deleteVictim();
 	void updateVictim();
 	void setFileLocation();
+	void showChart();
 };
 
