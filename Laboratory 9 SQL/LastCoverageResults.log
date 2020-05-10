@@ -1,0 +1,21 @@
+[2020-04-13 10:18:10] [info] Start Program:
+Path:"C:\\Users\\camel\\source\\repos\\Lab8OOP\\Debug\\Lab6OOP.exe"
+Arguments:
+Working directory: "C:\\Users\\camel\\source\\repos\\Lab8OOP\\Lab6OOP\\"
+Modules: Selected: C:\Users\camel\source\repos\Lab8OOP\Debug\Lab6OOP.exe Excluded: 
+Sources: Selected: C:\Users\camel\source\repos\Lab8OOP\Lab6OOP Excluded: 
+Log Level: Normal
+Cover Children: 0
+Aggregate by file: 1
+Continue after C++ exception: 0
+Optimized build support: 0
+Export: binary C:\Users\camel\AppData\Local\Temp\uxb3mfvq.nh1 
+Input coverage: 
+Unified diff: 
+Excluded line regular expressions: 
+Substitute pdb source paths: 
+
+[2020-04-13 10:18:10] [info] Module: C:\Users\camel\source\repos\Lab8OOP\Debug\Lab6OOP.exe is selected because it matches selected pattern: C:\Users\camel\source\repos\Lab8OOP\Debug\Lab6OOP.exe
+[2020-04-13 10:18:11] [info] ----------------------------------------------------
+[2020-04-13 10:18:11] [info] Coverage binary generated in file: C:\Users\camel\AppData\Local\Temp\uxb3mfvq.nh1
+[2020-04-13 10:18:11] [info] ----------------------------------------------------
